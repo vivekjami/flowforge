@@ -142,7 +142,7 @@ export function PricingSection() {
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <Badge variant="gradient" className="px-4 py-2">
+                  <Badge variant="gradient\" className="px-4 py-2">
                     <Sparkles className="w-4 h-4 mr-1" />
                     Most Popular
                   </Badge>
