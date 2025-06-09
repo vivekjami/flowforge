@@ -196,7 +196,10 @@ const Features = () => {
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   >
-                    <features[activeFeature].icon className="w-4 h-4 text-white" />
+                    {(() => {
+                      const CurrentIcon = features[activeFeature].icon;
+                      return <CurrentIcon className="w-4 h-4 text-white" />;
+                    })()}
                   </motion.div>
                   <div className="text-green-400 font-mono text-sm">
                     {features[activeFeature].preview}
@@ -289,7 +292,7 @@ const Features = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
         <motion.div
