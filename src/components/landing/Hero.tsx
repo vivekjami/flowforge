@@ -36,11 +36,6 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [currentPhrase]);
 
-  const companies = [
-    "Microsoft", "Google", "Netflix", "Spotify", "Airbnb", 
-    "Uber", "Slack", "GitHub", "Notion", "Linear"
-  ];
-
   const metrics = [
     { value: "2.3x", label: "Faster Delivery", icon: Zap },
     { value: "87%", label: "Prediction Accuracy", icon: Brain },
@@ -48,19 +43,19 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20 pb-8">
       {/* Clean gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100" />
       
-      {/* Subtle floating elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-40">
+      {/* Minimal floating elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
             animate={{ 
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              rotate: [0, 5, 0],
+              y: [0, -20, 0],
+              x: [0, 15, 0],
+              rotate: [0, 3, 0],
             }}
             transition={{ 
               duration: 8 + i * 2, 
@@ -68,20 +63,20 @@ export default function Hero() {
               ease: "easeInOut",
               delay: i * 2
             }}
-            className={`absolute w-${32 + i * 16} h-${32 + i * 16} bg-gradient-to-r ${
-              i === 0 ? 'from-indigo-200/30 to-purple-200/30' :
-              i === 1 ? 'from-blue-200/30 to-cyan-200/30' :
-              'from-purple-200/30 to-pink-200/30'
+            className={`absolute w-${24 + i * 12} h-${24 + i * 12} bg-gradient-to-r ${
+              i === 0 ? 'from-indigo-200/40 to-purple-200/40' :
+              i === 1 ? 'from-blue-200/40 to-cyan-200/40' :
+              'from-purple-200/40 to-pink-200/40'
             } rounded-full blur-xl`}
             style={{
-              top: `${20 + i * 25}%`,
-              left: `${10 + i * 30}%`,
+              top: `${15 + i * 20}%`,
+              left: `${10 + i * 25}%`,
             }}
           />
         ))}
       </div>
       
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -93,7 +88,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-indigo-200 px-6 py-3 rounded-full shadow-lg"
+            className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-indigo-200 px-5 py-2.5 rounded-full shadow-sm"
           >
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             <Sparkles className="h-4 w-4 text-indigo-600" />
@@ -102,10 +97,10 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Main headline */}
+          {/* Main headline - More concise */}
           <div className="space-y-4">
             <motion.h1 
-              className="text-5xl md:text-7xl font-black leading-tight"
+              className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -127,15 +122,15 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Value proposition */}
+          {/* Concise value proposition */}
           <motion.p 
-            className="text-lg text-slate-600 max-w-2xl mx-auto"
+            className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            FlowForge predicts bottlenecks before they happen, optimizes workflows automatically, 
-            and transforms your team into a productivity powerhouse.
+            Stop reacting to problems. Start preventing them. FlowForge's AI predicts bottlenecks 
+            and optimizes workflows before issues impact your team.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -165,7 +160,7 @@ export default function Hero() {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-8 py-4 text-lg font-semibold rounded-xl border-2 border-slate-300 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-300 group bg-white/80 backdrop-blur-sm"
+                className="px-8 py-4 text-lg font-semibold rounded-xl border-2 border-slate-300 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-300 group bg-white/90 backdrop-blur-sm"
               >
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                 Watch Demo
@@ -191,12 +186,12 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Metrics */}
+          {/* Metrics - Cleaner design */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.3 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto"
           >
             {metrics.map((metric, index) => (
               <motion.div
@@ -204,18 +199,18 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.5 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -3 }}
+                className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/60 hover:shadow-lg transition-all duration-300"
               >
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                    <metric.icon className="h-6 w-6 text-white" />
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+                    <metric.icon className="h-5 w-5 text-white" />
                   </div>
                 </div>
-                <div className="text-3xl font-black text-slate-900 mb-1">
+                <div className="text-2xl font-black text-slate-900 mb-1">
                   {metric.value}
                 </div>
-                <div className="text-slate-600 font-medium">
+                <div className="text-slate-600 font-medium text-sm">
                   {metric.label}
                 </div>
               </motion.div>
@@ -228,54 +223,21 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-6 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 border-2 border-indigo-300 rounded-full flex justify-center"
+            className="w-5 h-8 border-2 border-indigo-300 rounded-full flex justify-center"
           >
             <motion.div 
-              animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+              animate={{ y: [0, 8, 0], opacity: [1, 0, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1 h-3 bg-indigo-600 rounded-full mt-2" 
+              className="w-0.5 h-2 bg-indigo-600 rounded-full mt-1.5" 
             />
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Trusted companies section */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.8 }}
-        className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-200 py-6"
-      >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-4">
-            <p className="text-slate-500 font-medium text-sm">Trusted by teams at</p>
-          </div>
-          
-          <div className="overflow-hidden">
-            <motion.div
-              animate={{ x: [-100, -50] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="flex space-x-12 items-center justify-center"
-              style={{ width: "200%" }}
-            >
-              {[...companies, ...companies].map((company, index) => (
-                <div
-                  key={`${company}-${index}`}
-                  className="flex-shrink-0 text-slate-400 hover:text-slate-600 transition-colors duration-300 font-semibold text-lg tracking-wide"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {company}
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }
