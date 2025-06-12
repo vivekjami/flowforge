@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Brain, BarChart3, Zap, Shield, Users, Workflow, Eye, Cpu, Network, Gauge } from "lucide-react";
+import { Brain, Zap, Shield, Users, Workflow, Eye, Cpu, Network, Gauge } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Features() {
@@ -114,7 +114,7 @@ export default function Features() {
           
           <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             Not just another workflow tool—a complete intelligence platform that 
-            <span className="font-bold text-indigo-600"> thinks ahead</span> so you don't have to.
+            <span className="font-bold text-indigo-600"> thinks ahead</span> so you don&apos;t have to.
           </p>
         </motion.div>
 
@@ -257,7 +257,7 @@ export default function Features() {
                 Experience Intelligence in Action
               </h3>
               <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-                See how FlowForge's AI transforms your workflows from chaotic to predictable in real-time.
+                See how FlowForge&apos;s AI transforms your workflows from chaotic to predictable in real-time.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

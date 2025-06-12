@@ -149,7 +149,7 @@ export default function Hero() {
             <div className="w-2 h-2 bg-green-500 rounded-full" />
             <Sparkles className="h-4 w-4 text-indigo-600" />
             <span className="text-indigo-700 font-semibold text-sm">
-              World's First Predictive Workflow AI
+              World&apos;s First Predictive Workflow AI
             </span>
           </motion.div>
 
@@ -171,7 +171,7 @@ export default function Hero() {
               className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed h-8 flex items-center justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
             >
               <span className="font-medium">{isClient ? typedText : "Predict workflow bottlenecks"}</span>
               {isClient && (
@@ -180,7 +180,7 @@ export default function Hero() {
                   transition={{ duration: 1, repeat: Infinity }}
                   className="text-indigo-400 ml-1"
                 >
-                  |
+                  
                 </motion.span>
               )}
             </motion.div>
@@ -193,7 +193,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Stop reacting to problems. Start preventing them. FlowForge's AI predicts bottlenecks 
+            Stop reacting to problems. Start preventing them. FlowForge&apos;s AI predicts bottlenecks 
             and optimizes workflows before issues impact your team.
           </motion.p>
 
@@ -267,7 +267,7 @@ export default function Hero() {
             </div>
             
             <div className="text-indigo-600 font-medium">
-              Join 47,000+ teams already using FlowForge
+              Join 1,000+ teams already using FlowForge
             </div>
           </motion.div>
 

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { AlertTriangle, Clock, Zap, Target, Brain, Shield, Workflow, BarChart3 } from "lucide-react";
 
 export default function ProblemSolution() {
-  const companies = [
-    "Microsoft", "Google", "Netflix", "Spotify", "Airbnb", 
-    "Uber", "Slack", "GitHub", "Notion", "Linear", "Figma", "Discord"
-  ];
+  // const companies = [
+  //   "Microsoft", "Google", "Netflix", "Spotify", "Airbnb", 
+  //   "Uber", "Slack", "GitHub", "Notion", "Linear", "Figma", "Discord"
+  // ];
 
   const painPoints = [
     {
@@ -74,7 +74,7 @@ export default function ProblemSolution() {
   return (
     <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
       {/* Trusted companies section - moved here */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -105,7 +105,7 @@ export default function ProblemSolution() {
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Problem Section */}
@@ -137,7 +137,7 @@ export default function ProblemSolution() {
             </h2>
             
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              While you're building amazing products, broken workflows are silently 
+              While you&apos;re building amazing products, broken workflows are silently 
               <span className="font-bold text-red-600"> hemorrhaging millions</span> in lost productivity.
             </p>
           </motion.div>
@@ -246,7 +246,7 @@ export default function ProblemSolution() {
               Difference
             </h3>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              AI that doesn't just react—it <span className="font-bold text-emerald-600">predicts, prevents, and perfects</span> your workflows automatically.
+              AI that doesn&apos;t just react—it <span className="font-bold text-emerald-600">predicts, prevents, and perfects</span> your workflows automatically.
             </p>
           </motion.div>
 
@@ -306,7 +306,7 @@ export default function ProblemSolution() {
                 See Your Transformation in Real-Time
               </h3>
               <p className="text-lg text-indigo-100 mb-6 max-w-2xl mx-auto">
-                Watch your team's productivity metrics improve within hours, not weeks. 
+                Watch your team&apos;s productivity metrics improve within hours, not weeks. 
                 The difference is immediate and measurable.
               </p>
               

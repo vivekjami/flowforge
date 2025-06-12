@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Mail, Users, Clock, CheckCircle, Sparkles, Zap, Gift } from "lucide-react";
+import { ArrowRight, Mail, Users, Clock, CheckCircle, Sparkles, Gift } from "lucide-react";
 
 export default function BetaSignup() {
   const [email, setEmail] = useState("");
@@ -115,7 +115,7 @@ export default function BetaSignup() {
                 Welcome to the Future! 🚀
               </h2>
               <p className="text-2xl text-indigo-200 max-w-3xl mx-auto leading-relaxed">
-                You're now part of an exclusive group of workflow innovators. 
+                You&apos;re now part of an exclusive group of workflow innovators. 
                 Get ready for early access and founder-only benefits.
               </p>
             </div>
@@ -235,7 +235,7 @@ export default function BetaSignup() {
               </span>
             </h2>
             <p className="text-2xl md:text-3xl text-indigo-200 max-w-4xl mx-auto leading-relaxed">
-              Be among the first 50,000 teams to experience predictive workflow intelligence. 
+              Be among the first 200 teams to experience predictive workflow intelligence. 
               <span className="font-bold text-yellow-400"> Exclusive benefits included.</span>
             </p>
           </div>

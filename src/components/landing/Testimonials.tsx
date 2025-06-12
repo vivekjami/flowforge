@@ -74,21 +74,22 @@ export default function Testimonials() {
     }
   ];
 
-  const companies = [
-    { name: "Microsoft", logo: "🏢" },
-    { name: "Google", logo: "🔍" },
-    { name: "Netflix", logo: "🎬" },
-    { name: "Spotify", logo: "🎵" },
-    { name: "Airbnb", logo: "🏠" },
-    { name: "Uber", logo: "🚗" },
-    { name: "Slack", logo: "💬" },
-    { name: "GitHub", logo: "🐙" },
-    { name: "Notion", logo: "📝" },
-    { name: "Linear", logo: "📊" }
-  ];
+const companies = [
+  { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
+  { name: "", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+  { name: "Spotify", logo: "https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" },
+  { name: "", logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" },
+ 
+  { name: "Slack", logo: "https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" },
+  { name: "GitHub", logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" },
+  { name: "Notion", logo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" },
+  { name: "Linear", logo: "https://avatars.githubusercontent.com/u/73899066?s=200&v=4" }
+];
+
 
   const impactStats = [
-    { value: "47,000+", label: "Teams Transformed", description: "Active users worldwide" },
+    { value: "1,000+", label: "Teams Transformed", description: "Active users worldwide" },
     { value: "99.8%", label: "Uptime Delivered", description: "Enterprise-grade reliability" },
     { value: "4.9/5", label: "Customer Rating", description: "Highest in category" },
     { value: "2.3x", label: "Productivity Gain", description: "Average improvement" }
@@ -119,7 +120,7 @@ export default function Testimonials() {
           
           <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             See how teams like yours are achieving breakthrough productivity gains 
-            with FlowForge's intelligent workflow optimization.
+            with FlowForge&apos;s intelligent workflow optimization.
           </p>
         </motion.div>
 
@@ -138,7 +139,7 @@ export default function Testimonials() {
           <div className="overflow-hidden">
             <motion.div
               animate={{ x: [-1200, 0] }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="flex space-x-16 items-center"
             >
               {[...companies, ...companies].map((company, index) => (
@@ -146,7 +147,12 @@ export default function Testimonials() {
                   key={`${company.name}-${index}`}
                   className="flex-shrink-0 flex items-center space-x-3 group"
                 >
-                  <span className="text-3xl">{company.logo}</span>
+                  <img
+  src={company.logo}
+  alt={company.name}
+  className="h-10 w-auto object-contain grayscale group-hover:grayscale-0 transition duration-300"
+/>
+
                   <span className="text-2xl font-bold text-slate-400 group-hover:text-slate-600 transition-colors duration-300">
                     {company.name}
                   </span>
@@ -181,7 +187,7 @@ export default function Testimonials() {
 
                   {/* Testimonial content */}
                   <blockquote className="text-slate-700 leading-relaxed text-lg">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </blockquote>
 
                   {/* Metric highlight with icon */}
