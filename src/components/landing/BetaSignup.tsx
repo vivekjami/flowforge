@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Mail, Users, Clock, CheckCircle } from "lucide-react";
+import { ArrowRight, Mail, Users, Clock, CheckCircle, Sparkles, Zap, Gift } from "lucide-react";
 
 export default function BetaSignup() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [signupCount, setSignupCount] = useState(2847);
+  const [signupCount, setSignupCount] = useState(47000);
   const [timeLeft, setTimeLeft] = useState({
-    days: 15,
-    hours: 8,
-    minutes: 42,
-    seconds: 18
+    days: 12,
+    hours: 6,
+    minutes: 23,
+    seconds: 45
   });
 
   // Countdown timer
@@ -40,8 +40,8 @@ export default function BetaSignup() {
   // Simulate signup count increase
   useEffect(() => {
     const interval = setInterval(() => {
-      setSignupCount(prev => prev + Math.floor(Math.random() * 3) + 1);
-    }, 5000);
+      setSignupCount(prev => prev + Math.floor(Math.random() * 5) + 1);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
@@ -56,8 +56,31 @@ export default function BetaSignup() {
 
   if (isSubmitted) {
     return (
-      <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/30" />
+        
+        {/* Animated background elements */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [-20, -100, -20],
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: i * 0.2,
+              ease: "easeInOut"
+            }}
+            className="absolute w-2 h-2 bg-white rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -66,59 +89,68 @@ export default function BetaSignup() {
             transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
             className="space-y-8"
           >
-            <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle className="h-12 w-12 text-white" />
-            </div>
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              className="w-32 h-32 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full flex items-center justify-center mx-auto shadow-2xl"
+            >
+              <CheckCircle className="h-16 w-16 text-white" />
+            </motion.div>
             
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
                 Welcome to the Future! 🚀
               </h2>
-              <p className="text-xl text-indigo-200 max-w-2xl mx-auto">
-                You're now part of an exclusive group of innovators. We'll notify you the moment 
-                FlowForge launches with early access and special pricing.
+              <p className="text-2xl text-indigo-200 max-w-3xl mx-auto leading-relaxed">
+                You're now part of an exclusive group of workflow innovators. 
+                Get ready for early access and founder-only benefits.
               </p>
             </div>
 
-            <div className="glass-dark rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-white mb-4">
-                What happens next?
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 max-w-3xl mx-auto border border-white/20">
+              <h3 className="text-3xl font-bold text-white mb-8">
+                What Happens Next?
               </h3>
-              <div className="space-y-4 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                 {[
-                  "📧 Confirmation email sent to your inbox",
-                  "🎁 Exclusive early access when we launch",
-                  "💰 Special founder pricing (50% off first year)",
-                  "🤝 Direct line to our founding team",
-                  "📊 Beta testing opportunities"
+                  { icon: "📧", title: "Instant Confirmation", desc: "Check your inbox for welcome email" },
+                  { icon: "🎁", title: "Founder Pricing", desc: "Lock in 60% off for life" },
+                  { icon: "🚀", title: "Early Access", desc: "First to try new features" },
+                  { icon: "🤝", title: "Direct Line", desc: "Chat directly with our founders" },
+                  { icon: "📊", title: "Beta Testing", desc: "Shape the product roadmap" },
+                  { icon: "💎", title: "VIP Support", desc: "Priority customer success" }
                 ].map((item, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="text-indigo-200"
+                    className="flex items-start space-x-4 p-4 bg-white/5 rounded-xl border border-white/10"
                   >
-                    {item}
+                    <span className="text-2xl">{item.icon}</span>
+                    <div>
+                      <div className="text-white font-bold mb-1">{item.title}</div>
+                      <div className="text-indigo-200 text-sm">{item.desc}</div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
                 variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10"
-                onClick={() => window.open('https://twitter.com/intent/tweet?text=Just%20joined%20the%20FlowForge%20beta!%20The%20future%20of%20AI%20workflow%20intelligence%20is%20here.%20%23FlowForge%20%23AI%20%23Productivity', '_blank')}
+                className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-bold"
+                onClick={() => window.open('https://twitter.com/intent/tweet?text=Just%20joined%20FlowForge%20early%20access!%20The%20future%20of%20AI%20workflow%20intelligence%20is%20here.%20%23FlowForge%20%23AI%20%23Productivity', '_blank')}
               >
-                Share on Twitter
+                Share the News
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10"
-                onClick={() => window.open('https://linkedin.com/sharing/share-offsite/?url=https://flowforge.ai', '_blank')}
+                className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-bold"
+                onClick={() => window.open('mailto:friends@example.com?subject=Check%20out%20FlowForge&body=I%20just%20got%20early%20access%20to%20FlowForge%20-%20the%20AI%20workflow%20platform%20that%20predicts%20bottlenecks!', '_blank')}
               >
-                Share on LinkedIn
+                Invite Friends
               </Button>
             </div>
           </motion.div>
@@ -128,11 +160,36 @@ export default function BetaSignup() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-      {/* Background effects */}
+    <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+      {/* Enhanced background effects */}
       <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/20 to-indigo-400/20 rounded-full blur-3xl" />
+      
+      {/* Floating orbs */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{ 
+            y: [0, -30, 0],
+            x: [0, 20, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ 
+            duration: 4 + i, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: i * 0.5
+          }}
+          className={`absolute w-${20 + i * 8} h-${20 + i * 8} bg-gradient-to-r ${
+            i % 3 === 0 ? 'from-blue-400/20 to-purple-400/20' :
+            i % 3 === 1 ? 'from-pink-400/20 to-indigo-400/20' :
+            'from-purple-400/20 to-pink-400/20'
+          } rounded-full blur-3xl`}
+          style={{
+            top: `${10 + i * 10}%`,
+            left: `${5 + i * 12}%`,
+          }}
+        />
+      ))}
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -140,124 +197,149 @@ export default function BetaSignup() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center space-y-12"
+          className="text-center space-y-16"
         >
           {/* Header */}
-          <div className="space-y-6">
-            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+          <div className="space-y-8">
+            <motion.div
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="inline-flex items-center space-x-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-8 py-4 rounded-full font-bold text-lg shadow-2xl"
+            >
+              <Sparkles className="h-6 w-6" />
+              <span>Limited Early Access Available</span>
+              <Sparkles className="h-6 w-6" />
+            </motion.div>
+            
+            <h2 className="text-6xl md:text-8xl font-black text-white leading-tight">
               Join the{" "}
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Revolution
+              <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+                Elite
               </span>
             </h2>
-            <p className="text-xl md:text-2xl text-indigo-200 max-w-3xl mx-auto">
-              Be among the first to experience the future of workflow intelligence. 
-              Limited beta access available.
+            <p className="text-2xl md:text-3xl text-indigo-200 max-w-4xl mx-auto leading-relaxed">
+              Be among the first 50,000 teams to experience predictive workflow intelligence. 
+              <span className="font-bold text-yellow-400"> Exclusive benefits included.</span>
             </p>
           </div>
 
-          {/* Countdown timer */}
+          {/* Countdown timer with enhanced design */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="glass-dark rounded-2xl p-8 max-w-2xl mx-auto"
+            className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 max-w-3xl mx-auto border border-white/20"
           >
-            <div className="flex items-center justify-center space-x-2 mb-6">
-              <Clock className="h-6 w-6 text-yellow-400" />
-              <span className="text-white font-semibold">Beta Launch Countdown</span>
+            <div className="flex items-center justify-center space-x-3 mb-8">
+              <Clock className="h-8 w-8 text-yellow-400" />
+              <span className="text-white font-bold text-2xl">Early Access Closes In</span>
             </div>
             
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-6">
               {[
                 { value: timeLeft.days, label: "Days" },
                 { value: timeLeft.hours, label: "Hours" },
                 { value: timeLeft.minutes, label: "Minutes" },
                 { value: timeLeft.seconds, label: "Seconds" }
               ].map((time, index) => (
-                <div key={index} className="text-center">
-                  <div className="bg-white/10 rounded-lg p-4 mb-2">
-                    <div className="text-2xl md:text-3xl font-bold text-white">
+                <motion.div 
+                  key={index} 
+                  className="text-center"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="bg-gradient-to-br from-white/20 to-white/10 rounded-2xl p-6 mb-3 border border-white/20">
+                    <motion.div 
+                      key={time.value}
+                      initial={{ scale: 1.2, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="text-4xl md:text-5xl font-black text-white"
+                    >
                       {time.value.toString().padStart(2, '0')}
-                    </div>
+                    </motion.div>
                   </div>
-                  <div className="text-indigo-300 text-sm font-medium">
+                  <div className="text-indigo-300 font-bold">
                     {time.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Signup form */}
+          {/* Signup form with enhanced styling */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto"
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-6 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
                 <Input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder="Enter your work email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-12 py-4 text-lg bg-white/10 border-white/20 text-white placeholder-gray-300 focus:border-white/40 focus:ring-white/20"
+                  className="pl-16 py-6 text-xl bg-white/10 border-white/20 text-white placeholder-gray-300 focus:border-white/40 focus:ring-white/20 rounded-2xl backdrop-blur-sm"
                   required
                 />
               </div>
               
-              <Button 
-                type="submit"
-                size="lg"
-                className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Secure My Beta Access
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-black font-black py-6 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 group"
+                >
+                  <Gift className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+                  Claim My Elite Access
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" />
+                </Button>
+              </motion.div>
             </form>
 
             <p className="text-indigo-300 text-sm mt-4">
-              No spam, ever. Unsubscribe with one click.
+              No spam, ever. Unsubscribe anytime. Your data is protected.
             </p>
           </motion.div>
 
-          {/* Social proof */}
+          {/* Social proof and benefits */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-12"
           >
-            <div className="flex items-center justify-center space-x-2 text-indigo-200">
-              <Users className="h-5 w-5" />
-              <span className="font-semibold">
-                Join {signupCount.toLocaleString()} other innovators
+            <div className="flex items-center justify-center space-x-3 text-indigo-200">
+              <Users className="h-6 w-6" />
+              <span className="font-bold text-xl">
+                Join {signupCount.toLocaleString()} workflow innovators
               </span>
             </div>
 
-            {/* Benefits */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {/* Elite benefits */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {[
                 {
                   icon: "🎁",
-                  title: "Early Access",
-                  description: "Be first to experience FlowForge"
+                  title: "Founder Pricing",
+                  description: "Lock in 60% off for life",
+                  highlight: "Save $2,400/year"
                 },
                 {
-                  icon: "💰",
-                  title: "Founder Pricing",
-                  description: "50% off your first year"
+                  icon: "⚡",
+                  title: "Priority Access",
+                  description: "First to experience new features",
+                  highlight: "Weeks before public"
                 },
                 {
                   icon: "🤝",
-                  title: "Direct Access",
-                  description: "Shape the product with our team"
+                  title: "Founder Chat",
+                  description: "Direct access to our founding team",
+                  highlight: "Shape the roadmap"
                 }
               ].map((benefit, index) => (
                 <motion.div
@@ -266,11 +348,15 @@ export default function BetaSignup() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="glass-dark rounded-xl p-6 text-center"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 text-center border border-white/20 hover:border-white/40 transition-all duration-300"
                 >
-                  <div className="text-3xl mb-3">{benefit.icon}</div>
-                  <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
-                  <p className="text-indigo-300 text-sm">{benefit.description}</p>
+                  <div className="text-5xl mb-4">{benefit.icon}</div>
+                  <h3 className="text-white font-bold text-xl mb-3">{benefit.title}</h3>
+                  <p className="text-indigo-300 mb-3">{benefit.description}</p>
+                  <div className="text-yellow-400 font-bold text-sm bg-yellow-400/20 px-4 py-2 rounded-full inline-block">
+                    {benefit.highlight}
+                  </div>
                 </motion.div>
               ))}
             </div>

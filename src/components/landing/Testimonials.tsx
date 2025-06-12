@@ -1,73 +1,101 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, TrendingUp, Clock, Zap, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Testimonials() {
   const testimonials = [
     {
       name: "Sarah Chen",
-      role: "VP of Engineering",
+      role: "VP Engineering",
       company: "TechFlow Solutions",
       avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "FlowForge reduced our deployment cycle from 5 days to 2 days. The AI predictions are incredibly accurate - it caught a bottleneck 3 days before our sprint deadline.",
+      content: "FlowForge predicted our sprint bottleneck 3 days early. We adjusted resources and delivered on time for the first time in months. The AI accuracy is genuinely impressive.",
       rating: 5,
-      metric: "60% faster deployments"
+      metric: "100% on-time delivery",
+      icon: Target,
+      improvement: "From 60% to 100% sprint success rate"
     },
     {
       name: "Marcus Rodriguez",
-      role: "Operations Director",
-      company: "DataCore Industries",
+      role: "Head of Operations",
+      company: "DataCore Industries", 
       avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "The workflow intelligence is game-changing. We've saved 15 hours per week on manual process management. The ROI was evident within the first month.",
+      content: "We eliminated 18 hours of weekly manual coordination. The intelligent automation adapts to our team's patterns—it's like having a workflow expert working 24/7.",
       rating: 5,
-      metric: "15hrs saved weekly"
+      metric: "18hrs saved weekly",
+      icon: Clock,
+      improvement: "Reduced coordination overhead by 75%"
     },
     {
       name: "Dr. Emily Watson",
-      role: "Chief Technology Officer",
+      role: "CTO",
       company: "InnovateLab",
       avatar: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "FlowForge's predictive analytics helped us prevent 3 major project delays. The AI insights are like having a crystal ball for project management.",
+      content: "The predictive insights are game-changing. FlowForge identified a hidden dependency that would have caused a 2-week delay. ROI was immediate and measurable.",
       rating: 5,
-      metric: "3 delays prevented"
+      metric: "2-week delay prevented",
+      icon: TrendingUp,
+      improvement: "Prevented $400K in delayed revenue"
     },
     {
       name: "James Park",
-      role: "Head of Product",
+      role: "Engineering Director",
       company: "ScaleUp Dynamics",
       avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "The integration capabilities are phenomenal. Connected our entire tech stack in minutes, not weeks. The team productivity increased by 40%.",
+      content: "Integration was seamless—connected our entire stack in 20 minutes. The real-time optimization suggestions have improved our deployment success rate to 99.8%.",
       rating: 5,
-      metric: "40% productivity boost"
+      metric: "99.8% success rate",
+      icon: Zap,
+      improvement: "Deployment failures down 95%"
     },
     {
       name: "Lisa Thompson",
-      role: "Engineering Manager",
+      role: "Product Operations Lead",
       company: "CloudFirst Technologies",
       avatar: "https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "Best investment we've made in years. The AI workflow optimization suggestions are spot-on. Our team efficiency metrics have never been better.",
+      content: "FlowForge's AI caught a resource conflict that our project managers missed. The early warning system has transformed how we plan and execute complex projects.",
       rating: 5,
-      metric: "Best ROI in years"
+      metric: "Zero resource conflicts",
+      icon: Target,
+      improvement: "Project planning accuracy up 85%"
     },
     {
       name: "Alex Kumar",
       role: "Senior DevOps Engineer",
       company: "NextGen Solutions",
       avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      content: "FlowForge eliminated our context switching overhead. The real-time collaboration features are incredible. Our deployment success rate is now 99.8%.",
+      content: "The workflow intelligence is incredible. It automatically optimized our CI/CD pipeline and reduced build times by 40%. Best tool investment we've made.",
       rating: 5,
-      metric: "99.8% success rate"
+      metric: "40% faster builds",
+      icon: Zap,
+      improvement: "Developer productivity up 60%"
     }
   ];
 
   const companies = [
-    "Microsoft", "Google", "Netflix", "Spotify", "Airbnb", "Uber", "Slack", "GitHub", "Notion", "Linear"
+    { name: "Microsoft", logo: "🏢" },
+    { name: "Google", logo: "🔍" },
+    { name: "Netflix", logo: "🎬" },
+    { name: "Spotify", logo: "🎵" },
+    { name: "Airbnb", logo: "🏠" },
+    { name: "Uber", logo: "🚗" },
+    { name: "Slack", logo: "💬" },
+    { name: "GitHub", logo: "🐙" },
+    { name: "Notion", logo: "📝" },
+    { name: "Linear", logo: "📊" }
+  ];
+
+  const impactStats = [
+    { value: "47,000+", label: "Teams Transformed", description: "Active users worldwide" },
+    { value: "99.8%", label: "Uptime Delivered", description: "Enterprise-grade reliability" },
+    { value: "4.9/5", label: "Customer Rating", description: "Highest in category" },
+    { value: "2.3x", label: "Productivity Gain", description: "Average improvement" }
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-32 bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -75,52 +103,61 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-100 to-blue-100 px-4 py-2 rounded-full mb-6">
-            <Star className="h-5 w-5 text-yellow-500 fill-current" />
-            <span className="text-indigo-700 font-semibold">Trusted by 10,000+ teams</span>
+          <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-700 px-6 py-3 rounded-full mb-8">
+            <Star className="h-5 w-5 fill-current" />
+            <span className="font-bold">Loved by Industry Leaders</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Loved by Teams{" "}
-            <span className="gradient-text">Worldwide</span>
+          <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-8">
+            Real Results from{" "}
+            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              Real Teams
+            </span>
           </h2>
           
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how industry leaders are transforming their workflows and achieving 
-            unprecedented productivity gains with FlowForge.
+          <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            See how teams like yours are achieving breakthrough productivity gains 
+            with FlowForge's intelligent workflow optimization.
           </p>
         </motion.div>
 
-        {/* Company logos carousel */}
+        {/* Company logos with enhanced animation */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-20"
         >
+          <div className="text-center mb-8">
+            <p className="text-slate-500 font-medium">Trusted by teams at</p>
+          </div>
+          
           <div className="overflow-hidden">
             <motion.div
-              animate={{ x: [-1000, 0] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="flex space-x-12 items-center"
+              animate={{ x: [-1200, 0] }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="flex space-x-16 items-center"
             >
               {[...companies, ...companies].map((company, index) => (
                 <div
-                  key={`${company}-${index}`}
-                  className="flex-shrink-0 text-2xl font-bold text-gray-400 hover:text-gray-600 transition-colors duration-300"
+                  key={`${company.name}-${index}`}
+                  className="flex-shrink-0 flex items-center space-x-3 group"
                 >
-                  {company}
+                  <span className="text-3xl">{company.logo}</span>
+                  <span className="text-2xl font-bold text-slate-400 group-hover:text-slate-600 transition-colors duration-300">
+                    {company.name}
+                  </span>
                 </div>
               ))}
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Testimonials grid with enhanced design */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -130,45 +167,56 @@ export default function Testimonials() {
               viewport={{ once: true }}
               className="group"
             >
-              <Card className="h-full glass hover-lift hover-glow border-0 shadow-lg hover:shadow-2xl transition-all duration-500">
-                <CardContent className="p-6 space-y-4">
-                  {/* Quote icon */}
+              <Card className="h-full bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                <CardContent className="p-8 space-y-6">
+                  {/* Header with quote and rating */}
                   <div className="flex justify-between items-start">
-                    <Quote className="h-8 w-8 text-indigo-300" />
+                    <Quote className="h-10 w-10 text-indigo-300" />
                     <div className="flex space-x-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
+                        <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
                       ))}
                     </div>
                   </div>
 
                   {/* Testimonial content */}
-                  <blockquote className="text-gray-700 leading-relaxed">
+                  <blockquote className="text-slate-700 leading-relaxed text-lg">
                     "{testimonial.content}"
                   </blockquote>
 
-                  {/* Metric highlight */}
-                  <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-3 border border-indigo-100">
-                    <div className="text-sm font-semibold text-indigo-700">
-                      Key Result: {testimonial.metric}
+                  {/* Metric highlight with icon */}
+                  <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-200">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <testimonial.icon className="h-6 w-6 text-emerald-600" />
+                      <div className="text-lg font-bold text-emerald-700">
+                        {testimonial.metric}
+                      </div>
+                    </div>
+                    <div className="text-sm text-emerald-600 font-medium">
+                      {testimonial.improvement}
                     </div>
                   </div>
 
-                  {/* Author info */}
-                  <div className="flex items-center space-x-3 pt-4 border-t border-gray-100">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover ring-2 ring-indigo-100"
-                    />
+                  {/* Author info with enhanced styling */}
+                  <div className="flex items-center space-x-4 pt-6 border-t border-slate-200">
+                    <div className="relative">
+                      <img
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-full object-cover ring-4 ring-indigo-100"
+                      />
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-white rounded-full" />
+                      </div>
+                    </div>
                     <div>
-                      <div className="font-semibold text-gray-900">
+                      <div className="font-bold text-slate-900 text-lg">
                         {testimonial.name}
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-slate-600 font-medium">
                         {testimonial.role}
                       </div>
-                      <div className="text-sm font-medium text-indigo-600">
+                      <div className="text-indigo-600 font-bold">
                         {testimonial.company}
                       </div>
                     </div>
@@ -179,34 +227,38 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Bottom stats */}
+        {/* Impact statistics */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="text-center"
         >
+          <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-12">
+            The Numbers Speak for Themselves
+          </h3>
+          
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { value: "10,000+", label: "Active Teams" },
-              { value: "99.9%", label: "Uptime SLA" },
-              { value: "4.9/5", label: "Customer Rating" },
-              { value: "500M+", label: "Tasks Optimized" }
-            ].map((stat, index) => (
+            {impactStats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="group"
               >
-                <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600 font-medium">
-                  {stat.label}
+                <div className="bg-gradient-to-br from-white to-indigo-50 rounded-2xl p-8 shadow-lg border border-indigo-100 hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                    {stat.value}
+                  </div>
+                  <div className="text-slate-900 font-bold text-lg mb-2">
+                    {stat.label}
+                  </div>
+                  <div className="text-slate-600 text-sm">
+                    {stat.description}
+                  </div>
                 </div>
               </motion.div>
             ))}
