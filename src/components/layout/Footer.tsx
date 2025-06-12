@@ -72,7 +72,7 @@ export default function Footer() {
               </div>
               
               <p className="text-gray-300 leading-relaxed max-w-md">
-                Transform your workflows with AI intelligence. The world's first 
+                Transform your workflows with AI intelligence. The world&apos;s first 
                 predictive workflow optimization platform trusted by 10,000+ teams.
               </p>
 

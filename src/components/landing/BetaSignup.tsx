@@ -9,7 +9,7 @@ import { ArrowRight, Mail, Users, Clock, CheckCircle, Sparkles, Gift } from "luc
 export default function BetaSignup() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [signupCount, setSignupCount] = useState(47000);
+  const [signupCount, setSignupCount] = useState(30);
   const [timeLeft, setTimeLeft] = useState({
     days: 12,
     hours: 6,
