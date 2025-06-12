@@ -16,9 +16,16 @@ export default function BetaSignup() {
     minutes: 23,
     seconds: 45
   });
+  const [isClient, setIsClient] = useState(false);
 
-  // Countdown timer
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Countdown timer - only run on client
+  useEffect(() => {
+    if (!isClient) return;
+    
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev.seconds > 0) {
@@ -35,16 +42,18 @@ export default function BetaSignup() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isClient]);
 
-  // Simulate signup count increase
+  // Simulate signup count increase - only run on client
   useEffect(() => {
+    if (!isClient) return;
+    
     const interval = setInterval(() => {
       setSignupCount(prev => prev + Math.floor(Math.random() * 5) + 1);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,28 +68,32 @@ export default function BetaSignup() {
       <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/30" />
         
-        {/* Animated background elements */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [-20, -100, -20],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
-            }}
-            className="absolute w-2 h-2 bg-white rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
+        {/* Animated background elements - only render on client */}
+        {isClient && (
+          <>
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{
+                  y: [-10, -50, -10],
+                  opacity: [0, 0.8, 0],
+                  scale: [0, 0.8, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut"
+                }}
+                className="absolute w-1.5 h-1.5 bg-white rounded-full"
+                style={{
+                  left: `${10 + i * 7}%`,
+                  top: `${20 + (i % 3) * 25}%`,
+                }}
+              />
+            ))}
+          </>
+        )}
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -91,7 +104,7 @@ export default function BetaSignup() {
           >
             <motion.div
               animate={{ rotate: [0, 360] }}
-              transition={{ duration: 2, ease: "easeInOut" }}
+              transition={{ duration: 3, ease: "easeInOut" }}
               className="w-32 h-32 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full flex items-center justify-center mx-auto shadow-2xl"
             >
               <CheckCircle className="h-16 w-16 text-white" />
@@ -164,32 +177,36 @@ export default function BetaSignup() {
       {/* Enhanced background effects */}
       <div className="absolute inset-0 bg-black/20" />
       
-      {/* Floating orbs */}
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          animate={{ 
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ 
-            duration: 4 + i, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: i * 0.5
-          }}
-          className={`absolute w-${20 + i * 8} h-${20 + i * 8} bg-gradient-to-r ${
-            i % 3 === 0 ? 'from-blue-400/20 to-purple-400/20' :
-            i % 3 === 1 ? 'from-pink-400/20 to-indigo-400/20' :
-            'from-purple-400/20 to-pink-400/20'
-          } rounded-full blur-3xl`}
-          style={{
-            top: `${10 + i * 10}%`,
-            left: `${5 + i * 12}%`,
-          }}
-        />
-      ))}
+      {/* Floating orbs - only render on client with reduced intensity */}
+      {isClient && (
+        <>
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              animate={{ 
+                y: [0, -15, 0],
+                x: [0, 10, 0],
+                scale: [1, 1.05, 1],
+              }}
+              transition={{ 
+                duration: 6 + i, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: i * 0.8
+              }}
+              className={`absolute w-${16 + i * 4} h-${16 + i * 4} bg-gradient-to-r ${
+                i % 3 === 0 ? 'from-blue-400/10 to-purple-400/10' :
+                i % 3 === 1 ? 'from-pink-400/10 to-indigo-400/10' :
+                'from-purple-400/10 to-pink-400/10'
+              } rounded-full blur-3xl`}
+              style={{
+                top: `${15 + i * 15}%`,
+                left: `${10 + i * 15}%`,
+              }}
+            />
+          ))}
+        </>
+      )}
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -202,8 +219,8 @@ export default function BetaSignup() {
           {/* Header */}
           <div className="space-y-8">
             <motion.div
-              animate={{ rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
+              animate={{ rotate: [0, 2, -2, 0] }}
+              transition={{ duration: 6, repeat: Infinity }}
               className="inline-flex items-center space-x-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-8 py-4 rounded-full font-bold text-lg shadow-2xl"
             >
               <Sparkles className="h-6 w-6" />
@@ -246,12 +263,12 @@ export default function BetaSignup() {
                 <motion.div 
                   key={index} 
                   className="text-center"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="bg-gradient-to-br from-white/20 to-white/10 rounded-2xl p-6 mb-3 border border-white/20">
                     <motion.div 
                       key={time.value}
-                      initial={{ scale: 1.2, opacity: 0 }}
+                      initial={{ scale: 1.1, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       className="text-4xl md:text-5xl font-black text-white"
                     >
@@ -287,15 +304,15 @@ export default function BetaSignup() {
                 />
               </div>
               
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
                 <Button 
                   type="submit"
                   size="lg"
                   className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-black font-black py-6 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 group"
                 >
-                  <Gift className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+                  <Gift className="mr-3 h-6 w-6 group-hover:rotate-6 transition-transform duration-300" />
                   Claim My Elite Access
-                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" />
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
               </motion.div>
             </form>
@@ -348,7 +365,7 @@ export default function BetaSignup() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
                   className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 text-center border border-white/20 hover:border-white/40 transition-all duration-300"
                 >
                   <div className="text-5xl mb-4">{benefit.icon}</div>
