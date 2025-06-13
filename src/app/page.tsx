@@ -12,7 +12,10 @@ export default function LandingPage() {
     <main className="relative min-h-screen">
       <Navigation />
       <Hero />
-      <ProblemSolution />
+       <section id="about">
+        <ProblemSolution />
+      </section>
+      
       <section id="features">
         <Features />
       </section>
@@ -22,9 +25,8 @@ export default function LandingPage() {
       <section id="pricing">
         <Pricing />
       </section>
-      <section id="about">
-        <BetaSignup />
-      </section>
+     
+      <BetaSignup />
       <Footer />
     </main>
   );
