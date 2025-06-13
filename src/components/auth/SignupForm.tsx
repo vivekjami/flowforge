@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Loader2, Chrome, User } from 'lucide-react'
+import { Loader2, Chrome, Github, User } from 'lucide-react'
 import Link from 'next/link'
 
 export function SignupForm() {
@@ -19,12 +19,14 @@ export function SignupForm() {
     email: '',
     password: '',
     confirmPassword: '',
+    company: '',
+    role: '',
     agreeToTerms: false,
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
-  const { signUp, signInWithGoogle } = useAuth()
+  const { signUp, signInWithGoogle, signInWithGitHub, signInWithMicrosoft } = useAuth()
   const router = useRouter()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +59,13 @@ export function SignupForm() {
     }
 
     try {
-      const { error } = await signUp(formData.email, formData.password, formData.fullName)
+      const { error } = await signUp(
+        formData.email, 
+        formData.password, 
+        formData.fullName,
+        formData.company,
+        formData.role
+      )
       
       if (error) {
         setError(error.message)
@@ -72,15 +80,27 @@ export function SignupForm() {
     }
   }
 
-  const handleGoogleSignup = async () => {
+  const handleOAuthSignup = async (provider: 'google' | 'github' | 'microsoft') => {
     setLoading(true)
     setError('')
 
     try {
-      const { error } = await signInWithGoogle()
+      let error
+      switch (provider) {
+        case 'google':
+          ({ error } = await signInWithGoogle())
+          break
+        case 'github':
+          ({ error } = await signInWithGitHub())
+          break
+        case 'microsoft':
+          ({ error } = await signInWithMicrosoft())
+          break
+      }
       
       if (error) {
         setError(error.message)
+        setLoading(false)
       }
       // Redirect will be handled by the OAuth flow
     } catch (error) {
@@ -92,7 +112,7 @@ export function SignupForm() {
   if (success) {
     return (
       <div className="w-full max-w-md mx-auto">
-        <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-xl">
+        <Card className="backdrop-blur-sm bg-white/90 border-white/20 shadow-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold text-green-600">
               Check Your Email
@@ -120,9 +140,9 @@ export function SignupForm() {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-xl">
+      <Card className="backdrop-blur-sm bg-white/90 border-white/20 shadow-xl">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Join FlowForge
           </CardTitle>
           <CardDescription className="text-gray-600">
@@ -138,21 +158,53 @@ export function SignupForm() {
             </Alert>
           )}
 
-          {/* Google Sign Up */}
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
-            onClick={handleGoogleSignup}
-            disabled={loading}
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <Chrome className="h-4 w-4 mr-2" />
-            )}
-            Continue with Google
-          </Button>
+          {/* OAuth Buttons */}
+          <div className="space-y-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthSignup('google')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Chrome className="h-4 w-4 mr-2" />
+              )}
+              Continue with Google
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthSignup('github')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Github className="h-4 w-4 mr-2" />
+              )}
+              Continue with GitHub
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthSignup('microsoft')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <div className="h-4 w-4 mr-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-sm" />
+              )}
+              Continue with Microsoft
+            </Button>
+          </div>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -165,16 +217,45 @@ export function SignupForm() {
 
           {/* Email Sign Up */}
           <form onSubmit={handleEmailSignup} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="fullName">Full Name</Label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="John Doe"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                  className="h-12"
+                  disabled={loading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="company">Company</Label>
+                <Input
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="Acme Inc"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="h-12"
+                  disabled={loading}
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="role">Role</Label>
               <Input
-                id="fullName"
-                name="fullName"
+                id="role"
+                name="role"
                 type="text"
-                placeholder="Enter your full name"
-                value={formData.fullName}
+                placeholder="Product Manager"
+                value={formData.role}
                 onChange={handleInputChange}
-                required
                 className="h-12"
                 disabled={loading}
               />
@@ -186,7 +267,7 @@ export function SignupForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="john@company.com"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
@@ -237,11 +318,11 @@ export function SignupForm() {
               />
               <Label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the{' '}
-                <Link href="/terms" className="text-blue-600 hover:text-blue-500">
+                <Link href="/terms" className="text-indigo-600 hover:text-indigo-500">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-blue-600 hover:text-blue-500">
+                <Link href="/privacy" className="text-indigo-600 hover:text-indigo-500">
                   Privacy Policy
                 </Link>
               </Label>
@@ -249,7 +330,7 @@ export function SignupForm() {
 
             <Button
               type="submit"
-              className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-200"
+              className="w-full h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium transition-all duration-200"
               disabled={loading || !formData.agreeToTerms}
             >
               {loading ? (
@@ -271,7 +352,7 @@ export function SignupForm() {
               Already have an account?{' '}
               <Link 
                 href="/auth/login" 
-                className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
+                className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors"
               >
                 Sign in
               </Link>

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2, Chrome, Mail } from 'lucide-react'
+import { Loader2, Chrome, Github, Mail } from 'lucide-react'
 import Link from 'next/link'
 
 export function LoginForm() {
@@ -17,7 +17,7 @@ export function LoginForm() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const { signIn, signInWithGoogle } = useAuth()
+  const { signIn, signInWithGoogle, signInWithGitHub, signInWithMicrosoft } = useAuth()
   const router = useRouter()
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -40,15 +40,27 @@ export function LoginForm() {
     }
   }
 
-  const handleGoogleLogin = async () => {
+  const handleOAuthLogin = async (provider: 'google' | 'github' | 'microsoft') => {
     setLoading(true)
     setError('')
 
     try {
-      const { error } = await signInWithGoogle()
+      let error
+      switch (provider) {
+        case 'google':
+          ({ error } = await signInWithGoogle())
+          break
+        case 'github':
+          ({ error } = await signInWithGitHub())
+          break
+        case 'microsoft':
+          ({ error } = await signInWithMicrosoft())
+          break
+      }
       
       if (error) {
         setError(error.message)
+        setLoading(false)
       }
       // Redirect will be handled by the OAuth flow
     } catch (error) {
@@ -59,9 +71,9 @@ export function LoginForm() {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-xl">
+      <Card className="backdrop-blur-sm bg-white/90 border-white/20 shadow-xl">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Welcome Back
           </CardTitle>
           <CardDescription className="text-gray-600">
@@ -77,21 +89,53 @@ export function LoginForm() {
             </Alert>
           )}
 
-          {/* Google Sign In */}
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
-            onClick={handleGoogleLogin}
-            disabled={loading}
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <Chrome className="h-4 w-4 mr-2" />
-            )}
-            Continue with Google
-          </Button>
+          {/* OAuth Buttons */}
+          <div className="space-y-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthLogin('google')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Chrome className="h-4 w-4 mr-2" />
+              )}
+              Continue with Google
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthLogin('github')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Github className="h-4 w-4 mr-2" />
+              )}
+              Continue with GitHub
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200"
+              onClick={() => handleOAuthLogin('microsoft')}
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <div className="h-4 w-4 mr-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-sm" />
+              )}
+              Continue with Microsoft
+            </Button>
+          </div>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -134,7 +178,7 @@ export function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-200"
+              className="w-full h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium transition-all duration-200"
               disabled={loading}
             >
               {loading ? (
@@ -156,7 +200,7 @@ export function LoginForm() {
               Don&apos;t have an account?{' '}
               <Link 
                 href="/auth/signup" 
-                className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
+                className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors"
               >
                 Sign up
               </Link>

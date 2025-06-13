@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,6 +26,17 @@ export default function Navigation() {
     { name: "About", href: "#about" },
   ];
 
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -39,8 +51,9 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div
+          <motion.button
             whileHover={{ scale: 1.05 }}
+            onClick={() => handleNavClick('#')}
             className="flex items-center space-x-2"
           >
             <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
@@ -49,29 +62,29 @@ export default function Navigation() {
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               FlowForge
             </span>
-          </motion.div>
+          </motion.button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
+                onClick={() => handleNavClick(item.href)}
                 whileHover={{ y: -2 }}
                 className="text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200"
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
-              Sign In
+            <Button variant="ghost" className="text-gray-700 hover:text-indigo-600" asChild>
+              <Link href="/auth/login">Sign In</Link>
             </Button>
-            <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-              Get Started
+            <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300" asChild>
+              <Link href="/auth/signup">Get Started</Link>
             </Button>
           </div>
 
@@ -98,21 +111,20 @@ export default function Navigation() {
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="pt-4 space-y-2">
-                <Button variant="ghost" className="w-full justify-start">
-                  Sign In
+                <Button variant="ghost" className="w-full justify-start" asChild>
+                  <Link href="/auth/login">Sign In</Link>
                 </Button>
-                <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
-                  Get Started
+                <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white" asChild>
+                  <Link href="/auth/signup">Get Started</Link>
                 </Button>
               </div>
             </div>

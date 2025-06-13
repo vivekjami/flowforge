@@ -2,7 +2,7 @@
 import { createClientComponentClient, createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
-import type { Database } from '../types'
+import type { Database } from '../types/database'
 
 // Client-side Supabase client
 export const createBrowserClient = () => 
