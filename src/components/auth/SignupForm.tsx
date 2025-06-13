@@ -73,7 +73,7 @@ export function SignupForm() {
         setSuccess(true)
         // Note: User needs to confirm email before they can sign in
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)
@@ -103,7 +103,7 @@ export function SignupForm() {
         setLoading(false)
       }
       // Redirect will be handled by the OAuth flow
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred')
       setLoading(false)
     }

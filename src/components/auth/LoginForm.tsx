@@ -33,7 +33,7 @@ export function LoginForm() {
       } else {
         router.push('/dashboard')
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)
@@ -63,7 +63,7 @@ export function LoginForm() {
         setLoading(false)
       }
       // Redirect will be handled by the OAuth flow
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred')
       setLoading(false)
     }
