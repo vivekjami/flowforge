@@ -68,7 +68,7 @@ export function SignupForm() {
       )
       
       if (error) {
-        setError(error.message)
+        setError((error as { message?: string }).message || 'An error occurred')
       } else {
         setSuccess(true)
         // Note: User needs to confirm email before they can sign in
@@ -99,7 +99,7 @@ export function SignupForm() {
       }
       
       if (error) {
-        setError(error.message)
+        setError((error as { message?: string }).message || 'An error occurred')
         setLoading(false)
       }
       // Redirect will be handled by the OAuth flow

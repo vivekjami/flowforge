@@ -10,13 +10,13 @@ interface AuthContextType {
   user: User | null
   profile: UserProfile | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error: any }>
-  signUp: (email: string, password: string, fullName: string, company?: string, role?: string) => Promise<{ error: any }>
-  signInWithGoogle: () => Promise<{ error: any }>
-  signInWithGitHub: () => Promise<{ error: any }>
-  signInWithMicrosoft: () => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<{ error: unknown }>
+  signUp: (email: string, password: string, fullName: string, company?: string, role?: string) => Promise<{ error: unknown }>
+  signInWithGoogle: () => Promise<{ error: unknown }>
+  signInWithGitHub: () => Promise<{ error: unknown }>
+  signInWithMicrosoft: () => Promise<{ error: unknown }>
   signOut: () => Promise<void>
-  updateProfile: (updates: Partial<UserProfile>) => Promise<{ error: any }>
+  updateProfile: (updates: Partial<UserProfile>) => Promise<{ error: unknown }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)

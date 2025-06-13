@@ -29,7 +29,7 @@ export function LoginForm() {
       const { error } = await signIn(email, password)
       
       if (error) {
-        setError(error.message)
+        setError((error as { message?: string }).message || 'An error occurred')
       } else {
         router.push('/dashboard')
       }
@@ -59,7 +59,7 @@ export function LoginForm() {
       }
       
       if (error) {
-        setError(error.message)
+        setError((error as { message?: string })?.message || 'An error occurred')
         setLoading(false)
       }
       // Redirect will be handled by the OAuth flow

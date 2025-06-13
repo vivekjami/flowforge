@@ -11,11 +11,12 @@ import {
   Workflow, 
   Filter,
   MoreHorizontal,
-  Play,
-  Pause,
-  Settings,
+  
   TrendingUp
-} from 'lucide-react'
+} from 'lucide-react'  
+// Play,
+//   Pause,
+//   Settings,
 
 export default function WorkflowsPage() {
   const [searchQuery, setSearchQuery] = useState('')
