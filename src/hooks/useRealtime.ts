@@ -21,7 +21,7 @@ export function useRealtime() {
     }
   }, [])
 
-  const subscribeToWorkflows = (callback: (payload: any) => void) => {
+  const subscribeToWorkflows = (callback: (payload: unknown) => void) => {
     if (!user) return null
 
     const channel = supabase
@@ -42,7 +42,7 @@ export function useRealtime() {
     return channel
   }
 
-  const subscribeToIntegrations = (callback: (payload: any) => void) => {
+  const subscribeToIntegrations = (callback: (payload: unknown) => void) => {
     if (!user) return null
 
     const channel = supabase
@@ -63,7 +63,7 @@ export function useRealtime() {
     return channel
   }
 
-  const subscribeToRecommendations = (callback: (payload: any) => void) => {
+  const subscribeToRecommendations = (callback: (payload: unknown) => void) => {
     if (!user) return null
 
     const channel = supabase
