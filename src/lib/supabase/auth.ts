@@ -14,7 +14,7 @@ export class AuthService {
     return { data, error }
   }
 
-  async signUpWithEmail(email: string, password: string, metadata?: Record<string, any>) {
+  async signUpWithEmail(email: string, password: string, metadata?: Record<string, unknown>) {
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,
@@ -86,7 +86,7 @@ export class AuthService {
     return { data, error }
   }
 
-  onAuthStateChange(callback: (event: string, session: any) => void) {
+  onAuthStateChange(callback: (event: string, session: unknown) => void) {
     return this.supabase.auth.onAuthStateChange(callback)
   }
 }
