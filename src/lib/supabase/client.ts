@@ -9,8 +9,10 @@ export const createBrowserClient = () =>
   createClientComponentClient<Database>()
 
 // Server-side Supabase client
-export const createServerClient = () => 
-  createServerComponentClient<Database>({ cookies })
+export const createServerClient = () => {
+  const cookieStore = cookies()
+  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+}
 
 // Service role client for admin operations
 export const createServiceClient = () => {

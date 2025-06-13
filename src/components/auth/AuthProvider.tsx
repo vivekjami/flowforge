@@ -10,13 +10,13 @@ interface AuthContextType {
   user: User | null
   profile: UserProfile | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error: unknown }>
-  signUp: (email: string, password: string, fullName: string, company?: string, role?: string) => Promise<{ error: unknown }>
-  signInWithGoogle: () => Promise<{ error: unknown }>
-  signInWithGitHub: () => Promise<{ error: unknown }>
-  signInWithMicrosoft: () => Promise<{ error: unknown }>
+  signIn: (email: string, password: string) => Promise<{ error: any }>
+  signUp: (email: string, password: string, fullName: string, company?: string, role?: string) => Promise<{ error: any }>
+  signInWithGoogle: () => Promise<{ error: any }>
+  signInWithGitHub: () => Promise<{ error: any }>
+  signInWithMicrosoft: () => Promise<{ error: any }>
   signOut: () => Promise<void>
-  updateProfile: (updates: Partial<UserProfile>) => Promise<{ error: unknown }>
+  updateProfile: (updates: Partial<UserProfile>) => Promise<{ error: any }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -30,14 +30,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
-      
-      if (session?.user) {
-        await fetchUserProfile(session.user.id)
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        setUser(session?.user ?? null)
+        
+        if (session?.user) {
+          await fetchUserProfile(session.user.id)
+        }
+      } catch (error) {
+        console.error('Error getting initial session:', error)
+      } finally {
+        setLoading(false)
       }
-      
-      setLoading(false)
     }
 
     getInitialSession()
@@ -45,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.id)
         setUser(session?.user ?? null)
         
         if (session?.user) {
@@ -58,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => subscription.unsubscribe()
-  }, [])
+  }, [supabase])
 
   const fetchUserProfile = async (userId: string) => {
     try {
@@ -80,56 +85,76 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { error }
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
+    }
   }
 
   const signUp = async (email: string, password: string, fullName: string, company?: string, role?: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          company,
-          role,
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            company,
+            role,
+          },
         },
-      },
-    })
-    return { error }
+      })
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
+    }
   }
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    return { error }
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
+    }
   }
 
   const signInWithGitHub = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    return { error }
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
+    }
   }
 
   const signInWithMicrosoft = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'azure',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    return { error }
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'azure',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
+    }
   }
 
   const signOut = async () => {
@@ -141,16 +166,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updateProfile = async (updates: Partial<UserProfile>) => {
     if (!user) return { error: 'No user logged in' }
 
-    const { error } = await supabase
-      .from('user_profiles')
-      .update(updates)
-      .eq('id', user.id)
+    try {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .update(updates)
+        .eq('id', user.id)
+        .select()
+        .single()
 
-    if (!error) {
-      setProfile(prev => prev ? { ...prev, ...updates } : null)
+      if (!error && data) {
+        setProfile(data)
+      }
+
+      return { data, error }
+    } catch (error) {
+      return { data: null, error }
     }
-
-    return { error }
   }
 
   const value = {

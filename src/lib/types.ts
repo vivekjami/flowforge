@@ -42,6 +42,7 @@ export interface UserProfile {
   role: string | null
   onboarding_completed: boolean
   subscription_tier: 'free' | 'pro' | 'enterprise'
+  avatar_url: string | null
   created_at: string
   updated_at: string
 }
