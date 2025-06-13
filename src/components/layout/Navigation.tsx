@@ -19,11 +19,25 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { name: "Features", href: "#Features" },
+    { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
     { name: "Testimonials", href: "#testimonials" },
     { name: "About", href: "#about" },
   ];
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  };
 
   return (
     <motion.nav
@@ -32,7 +46,7 @@ export default function Navigation() {
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-lg" 
+          ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-lg" 
           : "bg-transparent"
       }`}
     >
@@ -41,7 +55,8 @@ export default function Navigation() {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
               <Sparkles className="h-5 w-5 text-white" />
@@ -54,23 +69,30 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
+                onClick={() => handleNavClick(item.href)}
                 whileHover={{ y: -2 }}
-                className="text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 cursor-pointer"
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
+            <Button 
+              variant="ghost" 
+              className="text-gray-700 hover:text-indigo-600"
+              onClick={() => window.location.href = '/auth/login'}
+            >
               Sign In
             </Button>
-            <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button 
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.location.href = '/auth/signup'}
+            >
               Get Started
             </Button>
           </div>
@@ -98,20 +120,26 @@ export default function Navigation() {
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="pt-4 space-y-2">
-                <Button variant="ghost" className="w-full justify-start">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => window.location.href = '/auth/login'}
+                >
                   Sign In
                 </Button>
-                <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white">
+                <Button 
+                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+                  onClick={() => window.location.href = '/auth/signup'}
+                >
                   Get Started
                 </Button>
               </div>

@@ -13,10 +13,18 @@ export default function LandingPage() {
       <Navigation />
       <Hero />
       <ProblemSolution />
-      <Features />
-      <Testimonials />
-      <Pricing />
-      <BetaSignup />
+      <section id="features">
+        <Features />
+      </section>
+      <section id="testimonials">
+        <Testimonials />
+      </section>
+      <section id="pricing">
+        <Pricing />
+      </section>
+      <section id="about">
+        <BetaSignup />
+      </section>
       <Footer />
     </main>
   );
